@@ -6,11 +6,15 @@
   "author": "Ray Chan",
   "license": "MIT",
   "scripts": {
-    "server": "node server/server.js"
+    "server": "nodemon server/server.js",
+    "server:debug": "(DEBUG=true || set DEBUG=true) && npm run server"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
   }
 }

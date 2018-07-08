@@ -7,8 +7,8 @@ const { ObjectId } = Schema.Types;
 
 const articleSchema = new Schema({
 	writtenBy: {
-		type: ObjectId,
-		ref: 'User'
+		type: String,
+		required: true
 	},
 	title: {
 		type: String,
@@ -18,10 +18,10 @@ const articleSchema = new Schema({
 		type: String,
 		required: true
 	},
-	likes: {
+	likes: [{
 		type: ObjectId,
 		ref: 'User'
-	},
+	}],
 	lastEdited: {
 		type: Number,
 		default: new Date().getTime()
