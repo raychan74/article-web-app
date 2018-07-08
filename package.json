@@ -7,14 +7,36 @@
   "license": "MIT",
   "scripts": {
     "server": "nodemon server/server.js",
-    "server:debug": "(DEBUG=true || set DEBUG=true) && npm run server"
+    "server:debug": "(DEBUG=true || set DEBUG=true) && npm run server",
+    "dev": "webpack-dev-server"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "mongoose": "^5.2.1"
+    "mongoose": "^5.2.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-form": "^7.4.2",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.5",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^5.0.1",
+    "eslint-plugin-react": "^7.10.0",
+    "flow-bin": "^0.76.0",
+    "nodemon": "^1.17.5",
+    "redux-logger": "^3.0.6",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
   }
 }

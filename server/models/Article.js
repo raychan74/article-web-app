@@ -31,7 +31,10 @@ const articleSchema = new Schema({
 		author: { type: ObjectId, ref: 'User' },
 		content: String
 	}],
-	category: [String]
+	category: [String],
+	imageUrl: {
+		type: String
+	}
 });
 
 module.exports = mongoose.model('Article', articleSchema);
