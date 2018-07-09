@@ -26,10 +26,10 @@ const articleSchema = new Schema({
 		type: Number,
 		default: new Date().getTime()
 	},
-	image: String,
 	comments: [{
 		author: { type: ObjectId, ref: 'User' },
-		content: String
+		content: String,
+		lastEdited: { type: Number, default: new Date().getItem() }
 	}],
 	category: [String],
 	imageUrl: {

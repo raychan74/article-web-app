@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const cors = require('cors');
 
 const User = require('./models/User');
 const Article = require('./models/Article');
@@ -18,6 +19,7 @@ mongoose.connect('mongodb://localhost/article-dev')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json({ a: 'abc' });
@@ -99,6 +101,12 @@ app.put('/api/article/like', (req, res) => {
 				.catch(err => res.status(500).send('Oops, something\'s not right here'));
 		})
 		.catch(err => res.status(500).send('Oops, something\'s not right here'));
+});
+
+app.get('/api/article', (req, res) => {
+	Article.find({})
+		.then(articles => res.json(articles))
+		.catch(err => res.send('Cannot get articles'));
 });
 
 // send with userId
