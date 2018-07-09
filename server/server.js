@@ -1,14 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const fs = require('fs');
+// const fs = require('fs');
 const cors = require('cors');
 
 const User = require('./models/User');
 const Article = require('./models/Article');
+const seed = require('./seed');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const corsOptions = {
+	origin: 'http://localhost',
+	optionsSuccessStatus: 200
+};
 
 if (process.env.DEBUG) {
 	mongoose.set('debug', true);
@@ -17,12 +22,29 @@ if (process.env.DEBUG) {
 mongoose.connect('mongodb://localhost/article-dev')
 	.catch(err => console.log(err));
 
+// initialize DB data
+// User.remove({}).exec();
+// Article.remove({}).exec();
+// 
+// Promise.all([User.insertMany(seed.users), Article.insertMany(seed.articles)])
+// 	.then(() => console.log('DB seeded'))
+// 	.catch(err => console.log(err));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
+
+// enable pre-flight
+app.options('*', cors());
 
 app.get('/', (req, res) => {
 	res.json({ a: 'abc' });
+});
+
+app.get('/api/user', (req, res) => {
+	User.find({})
+		.then(user => res.json(user))
+		.catch(err => res.send('Cannot get user'));
 });
 
 app.post('/api/user', (req, res) => {

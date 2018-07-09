@@ -1,0 +1,4 @@
+{
+	"exec": "npm run preserver && node server-build/server.js",
+	"watch": ["server"]
+}

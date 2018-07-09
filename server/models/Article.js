@@ -29,7 +29,7 @@ const articleSchema = new Schema({
 	comments: [{
 		author: { type: ObjectId, ref: 'User' },
 		content: String,
-		lastEdited: { type: Number, default: new Date().getItem() }
+		lastEdited: { type: Number, default: new Date().getTime() }
 	}],
 	category: [String],
 	imageUrl: {

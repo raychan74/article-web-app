@@ -3,13 +3,17 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 
 type ObjectId = typeof mongoose.Types.ObjectId;
+type Comment = {
+	author: ObjectId,
+	content: string
+};
 
 const { lorem, name, internet, image } = faker;
 const userId: Array<ObjectId> = [];
 const articleId: Array<ObjectId> = [];
 const categories: Array<string> = ['React', 'JavaScript', 'CSS', 'CI/CD', 'Docker', 'Jenkins'];
 
-const randomPicker = <T>(arr: Array<T>, probability: number, atLeast: number = 0): Array<T> => {
+const randomPicker = (arr: Array<ObjectId>, probability: number, atLeast: number = 0): Array<ObjectId> => {
 	atLeast > arr.length ? atLeast = arr.length : null;
 
 	const ensuredItem = arr.slice(0, atLeast);
@@ -47,12 +51,12 @@ const articles = articleId.map(id => {
 		category: [categories[Math.floor(Math.random() * categories.length)]],
 		imageUrl: image.avatar(),
 		likes: randomPicker(userId, 0.4),
-		comments: randomPicker(userId, 0.1).map(id => {
+		comments: (randomPicker(userId, 0.1).map(id => {
 			return {
 				author: id,
 				content: lorem.paragraph()
 			};
-		}),
+		}): Array<Comment>),
 	};
 });
 
@@ -75,3 +79,5 @@ users = users.map(user => {
 
 	return user;
 });
+
+module.exports = ({ users, articles }: { users: Array<*>, articles: Array<*> });

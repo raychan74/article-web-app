@@ -6,7 +6,8 @@
   "author": "Ray Chan",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon server/server.js",
+    "preserver": "babel server/ -d server-build/",
+    "server": "nodemon server-build/server.js",
     "server:debug": "(DEBUG=true || set DEBUG=true) && npm run server",
     "dev": "webpack-dev-server",
     "flow": "flow"
@@ -26,6 +27,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",
     "babel-loader": "^7.1.5",
