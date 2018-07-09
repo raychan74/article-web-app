@@ -6,14 +6,10 @@ const cors = require('cors');
 
 const User = require('./models/User');
 const Article = require('./models/Article');
-const seed = require('./seed');
+// const seed = require('./seed');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const corsOptions = {
-	origin: 'http://localhost',
-	optionsSuccessStatus: 200
-};
 
 if (process.env.DEBUG) {
 	mongoose.set('debug', true);
@@ -32,10 +28,7 @@ mongoose.connect('mongodb://localhost/article-dev')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
-
-// enable pre-flight
-app.options('*', cors());
+app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json({ a: 'abc' });

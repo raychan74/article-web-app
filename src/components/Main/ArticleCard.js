@@ -2,21 +2,25 @@
 import React from 'react';
 
 import type Article from '../../constants/flowtypes';
+import {
+	StyledArticleCard
+} from './Styles';
 
 const ArticleCard = (props: Article) => {
 	const { title, writtenBy, likes } = props.article;
+	const { Image, Title, Author, Likes, Bookmark } = StyledArticleCard;
 
 	return (
-		<div>
-			<img src='#' width='200' height='200' />
-			<h3>{title}</h3>
-			<p>{writtenBy}</p>
+		<StyledArticleCard>
+			<Image src='#' width='125' height='125' />
+			<Title>{title}</Title>
+			<Author>{writtenBy}</Author>
 
-			<span>{likes.length}</span>
+			<Likes>{likes.length}</Likes>
 
 			{/* TODO: show bookmark when user is authenticated */}
-			<span>Bookmark</span>
-		</div>
+			<Bookmark>Bookmark</Bookmark>
+		</StyledArticleCard>
 	);
 };
 

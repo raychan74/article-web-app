@@ -5,8 +5,9 @@ import axios from 'axios';
 import type Article from '../../constants/flowtypes';
 import ArticleCard from './ArticleCard';
 
-const categories = ['React', 'CSS', 'JavaScript'];
+const categories = ['React', 'JavaScript', 'CSS', 'CI/CD', 'Docker', 'Jenkins'];
 
+// TODO: split request into smaller chunks, no need to grab the whole DB
 class Main extends Component<{}, { articles: Array<Article> }> {
 	state = {
 		articles: []
@@ -21,14 +22,17 @@ class Main extends Component<{}, { articles: Array<Article> }> {
 		return (
 			<div>
 				{categories.map(category => {
-					const articles = this.state.articles.filter(articles => {
-						return articles.category.includes(category.toLowerCase());
+					const articles = this.state.articles.filter(article => {
+						// lowercase the category
+						const lowerCased = article.category.map(string => string.toLowerCase());
+
+						return lowerCased.includes(category.toLowerCase());
 					});
 
 					return (
 						<div key={category}>
-							<h2>{category}</h2>
-							{articles.map(article => {
+							<h2 style={{ boxShadow: '0 2px 1px -1px #eee', marginBottom: 0, width: '50%', borderBottom: '1px solid #ddd' }}>{category}</h2>
+							{articles.slice(0, 3).map(article => {
 								return <ArticleCard key={article._id} article={article} />;
 							})}
 						</div>
