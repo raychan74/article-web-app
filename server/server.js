@@ -124,6 +124,13 @@ app.get('/api/article', (req, res) => {
 		.catch(err => res.send('Cannot get articles'));
 });
 
+app.get('/api/article/:id', (req, res) => {
+	Article.findById(req.params.id)
+		.populate('comments.author', 'username')
+		.then(article => res.json(article))
+		.catch(err => res.send('Cannot get article'));
+});
+
 // send with userId
 app.post('/api/article', (req, res) => {
 	const newArticle = new Article(req.body);

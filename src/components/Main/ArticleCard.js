@@ -1,27 +1,29 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 
-import type Article from '../../constants/flowtypes';
+import type { Article } from '../../constants/flowTypes';
 import {
 	StyledArticleCard
 } from './Styles';
 
-const ArticleCard = (props: Article) => {
-	const { title, writtenBy, likes } = props.article;
-	const { Image, Title, Author, Likes, Bookmark } = StyledArticleCard;
+class ArticleCard extends Component<Article> {
+	render() {
+		const { title, writtenBy, likes } = this.props.article;
+		const { Image, Title, Author, Likes, Bookmark } = StyledArticleCard;
 
-	return (
-		<StyledArticleCard>
-			<Image src='#' width='125' height='125' />
-			<Title>{title}</Title>
-			<Author>{writtenBy}</Author>
+		return (
+			<StyledArticleCard>
+				<Image src='#' width='125' height='125' />
+				<Title>{title}</Title>
+				<Author>{writtenBy}</Author>
 
-			<Likes>{likes.length}</Likes>
+				<Likes>{likes.length}</Likes>
 
-			{/* TODO: show bookmark when user is authenticated */}
-			<Bookmark>Bookmark</Bookmark>
-		</StyledArticleCard>
-	);
-};
+				{/* TODO: show bookmark when user is authenticated */}
+				<Bookmark>Bookmark</Bookmark>
+			</StyledArticleCard>
+		);
+	}
+}
 
 export default ArticleCard;

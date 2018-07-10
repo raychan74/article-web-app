@@ -1,28 +1,31 @@
 // @flow
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
-import type Article from '../../constants/flowtypes';
+import type { Article } from '../../constants/flowTypes';
 import ArticleCard from './ArticleCard';
+import { StyledLink } from './Styles';
+import { fetchArticles } from '../../actions';
+
+type Props = {
+	history: *,
+	fetchArticles: () => Array<Article>,
+	articles: Array<Article>
+};
 
 const categories = ['React', 'JavaScript', 'CSS', 'CI/CD', 'Docker', 'Jenkins'];
 
 // TODO: split request into smaller chunks, no need to grab the whole DB
-class Main extends Component<{}, { articles: Array<Article> }> {
-	state = {
-		articles: []
-	}
-
+class Main extends Component<Props, { articles: Array<Article> }> {
 	componentDidMount() {
-		axios.get('http://localhost:3000/api/article')
-			.then(res => this.setState({ articles: res.data }));
+		this.props.fetchArticles();
 	}
 
 	render() {
 		return (
 			<div>
 				{categories.map(category => {
-					const articles = this.state.articles.filter(article => {
+					const articles = this.props.articles.filter(article => {
 						// lowercase the category
 						const lowerCased = article.category.map(string => string.toLowerCase());
 
@@ -33,7 +36,11 @@ class Main extends Component<{}, { articles: Array<Article> }> {
 						<div key={category}>
 							<h2 style={{ boxShadow: '0 2px 1px -1px #eee', marginBottom: 0, width: '50%', borderBottom: '1px solid #ddd' }}>{category}</h2>
 							{articles.slice(0, 3).map(article => {
-								return <ArticleCard key={article._id} article={article} />;
+								return (
+									<StyledLink key={article._id} to={`article/${article._id}`}>
+										<ArticleCard article={article} />
+									</StyledLink>
+								);
 							})}
 						</div>
 					);
@@ -43,4 +50,8 @@ class Main extends Component<{}, { articles: Array<Article> }> {
 	}
 }
 
-export default Main;
+function mapStateToProps ({ articles }) {
+	return { articles: articles.fetchedArticles };
+}
+
+export default connect(mapStateToProps, { fetchArticles })(Main);

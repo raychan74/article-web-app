@@ -1,13 +1,12 @@
 import React from 'react';
 
 import Nav from './Nav';
-import Main from './Main';
 
-const App = () => {
+const App = ({ children }) => {
 	return (
 		<div>
 			<Nav />
-			<Main />
+			{children}
 		</div>
 	);
 };
